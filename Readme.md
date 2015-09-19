@@ -29,6 +29,10 @@ Add or update files in `/public`.
 	$ heroku config:set USER=username
 	$ heroku config:set PASS=password
 
+### Forcing SSL
+
+    $ heroku config:set FORCE_SSL=true
+
 ### Screencast
 
   * https://vimeo.com/71315109

@@ -4,8 +4,19 @@ var app = express();
 
 var user = process.env.USER;
 var pass = process.env.PASS;
+var ssl = process.env.FORCE_SSL;
 
 app.set('port', process.env.PORT || 3000);
+
+if (ssl) {
+  app.all('*', function (req, res, next) {
+    if (req.headers['x-forwarded-proto'] !== 'https') {
+      res.redirect('https://' + req.headers.host + req.url);
+    } else {
+      next();
+    }
+  });
+}
 
 if (user && pass) {
   app.use(express.basicAuth(user, pass));
